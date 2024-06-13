@@ -1,3 +1,47 @@
+/* Custom scrollbar styles */
+
+/* WebKit browsers */
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #efe;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #ada;
+  border-radius: 6px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #aea;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #ada #efe;
+}
+
+/* CSS for scrollbar track and thumb */
+html::-moz-scrollbar {
+  width: 12px;
+}
+
+html::-moz-scrollbar-track {
+  background: #efe;
+}
+
+html::-moz-scrollbar-thumb {
+  background: #ada;
+  border-radius: 6px;
+}
+
+html::-moz-scrollbar-thumb:hover {
+  background: #aea;
+}
+
 #root {
   /* width: 100vw; */
   height: 100vh;
