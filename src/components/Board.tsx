@@ -1,24 +1,59 @@
 import { useRef, useState } from "react";
 import Connector from "./Connector";
 
-const Board = () => {
+interface IBoardProps {
+    boxQuantity: number;
+    initialTop?: number;
+    initialLeft?: number;
+    gap?: number;
+    cols?: number;
+    rows?: number;
+}
+const Board: React.FC<IBoardProps> = ({
+    boxQuantity,
+    initialTop = 100,
+    initialLeft = 100,
+    gap = 300,
+    cols = 2
+}) => {
     const [borderRadius, setBorderRadius] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [boxes] = useState([
-        { id: 'box0', top: 100, left: 100 },
-        { id: 'box1', top: 100, left: 1000 },
-        { id: 'box2', top: 400, left: 100 },
-        { id: 'box3', top: 400, left: 1000 },
-        { id: 'box4', top: 700, left: 100 },
-        { id: 'box5', top: 700, left: 1000 },
-        { id: 'box6', top: 400, left: 550 }
-    ]);
-    const [connections] = useState([
-        { start: 0, end: 6 },
-        { start: 2, end: 6 },
-        { start: 1, end: 6 },
-        { start: 5, end: 6 }
-    ]);
+    const connections = [
+        { start: 0, end: 1 },
+        { start: 2, end: 3 },
+        { start: 4, end: 5 }
+    ];
+
+    // dynamically calculate positions of the boxes
+    const generateBoxes = (boxQuantity: number, cols: number, gap: number, initialTop: number, initialLeft: number) => {
+        let boxes = [];
+        let index = 0;
+        let row = 0;
+        let col = 0;
+
+        // loop until we have generated boxQuantity number of boxes
+        while (index < boxQuantity) {
+            boxes.push({
+                id: `box${index}`,
+                top: initialTop + row * gap,
+                left: initialLeft + col * gap
+            });
+
+            // move to the next column and row
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
+
+            index++;
+        }
+
+        return boxes;
+    };
+
+    const boxes = generateBoxes(boxQuantity, cols, gap, initialTop, initialLeft);
+
 
     const updateBorderRadius = () => {
         if (inputRef.current) {
@@ -33,28 +68,30 @@ const Board = () => {
                 <label>{'Curvy-ness (10-200)'}</label>
                 <input ref={inputRef} value={borderRadius} onChange={updateBorderRadius} />
             </div>
-            {
-                boxes.map(({ id, top, left }) => (
-                    <div
-                        key={id}
-                        id={id}
-                        className='box'
-                        style={{ top, left }}
-                    >
-                        {id}
-                    </div>
-                ))
-            }
-            {
-                connections.map(({ start, end }) =>
-                    <Connector
-                        key={`${start}-${end}`}
-                        startBox={boxes[start]}
-                        endBox={boxes[end]}
-                        borderRadius={borderRadius}
-                    />
-                )
-            }
+            <div className="boxes">
+                {
+                    boxes.map(({ id, top, left }) => (
+                        <div
+                            key={id}
+                            id={id}
+                            className='box'
+                            style={{ top, left }}
+                        >
+                            {id}
+                        </div>
+                    ))
+                }
+                {
+                    connections.map(({ start, end }) =>
+                        <Connector
+                            key={`${start}-${end}`}
+                            startBox={boxes[start]}
+                            endBox={boxes[end]}
+                            borderRadius={borderRadius}
+                        />
+                    )
+                }
+            </div>
         </div>
     );
 };

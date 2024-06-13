@@ -4,7 +4,9 @@ function App() {
 
   return (
     <div className='wrapper'>
-      <Board />
+      <Board
+        boxQuantity={6}
+      />
     </div>
   )
 }
