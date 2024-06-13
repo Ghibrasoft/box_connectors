@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Connector from "./Connector";
+import { generateBoxes } from "../helpers/generateBoxes";
 
 interface IBoardProps {
     boxQuantity: number;
@@ -7,14 +8,13 @@ interface IBoardProps {
     initialLeft?: number;
     gap?: number;
     cols?: number;
-    rows?: number;
 }
 const Board: React.FC<IBoardProps> = ({
     boxQuantity,
     initialTop = 100,
     initialLeft = 100,
     gap = 300,
-    cols = 2
+    cols = 2,
 }) => {
     const [borderRadius, setBorderRadius] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -25,33 +25,6 @@ const Board: React.FC<IBoardProps> = ({
     ];
 
     // dynamically calculate positions of the boxes
-    const generateBoxes = (boxQuantity: number, cols: number, gap: number, initialTop: number, initialLeft: number) => {
-        let boxes = [];
-        let index = 0;
-        let row = 0;
-        let col = 0;
-
-        // loop until we have generated boxQuantity number of boxes
-        while (index < boxQuantity) {
-            boxes.push({
-                id: `box${index}`,
-                top: initialTop + row * gap,
-                left: initialLeft + col * gap
-            });
-
-            // move to the next column and row
-            col++;
-            if (col >= cols) {
-                col = 0;
-                row++;
-            }
-
-            index++;
-        }
-
-        return boxes;
-    };
-
     const boxes = generateBoxes(boxQuantity, cols, gap, initialTop, initialLeft);
 
 
@@ -68,30 +41,28 @@ const Board: React.FC<IBoardProps> = ({
                 <label>{'Curvy-ness (10-200)'}</label>
                 <input ref={inputRef} value={borderRadius} onChange={updateBorderRadius} />
             </div>
-            <div className="boxes">
-                {
-                    boxes.map(({ id, top, left }) => (
-                        <div
-                            key={id}
-                            id={id}
-                            className='box'
-                            style={{ top, left }}
-                        >
-                            {id}
-                        </div>
-                    ))
-                }
-                {
-                    connections.map(({ start, end }) =>
-                        <Connector
-                            key={`${start}-${end}`}
-                            startBox={boxes[start]}
-                            endBox={boxes[end]}
-                            borderRadius={borderRadius}
-                        />
-                    )
-                }
-            </div>
+            {
+                boxes.map(({ id, top, left }) => (
+                    <div
+                        key={id}
+                        id={id}
+                        className='box'
+                        style={{ top, left }}
+                    >
+                        {id}
+                    </div>
+                ))
+            }
+            {
+                connections.map(({ start, end }) =>
+                    <Connector
+                        key={`${start}-${end}`}
+                        startBox={boxes[start]}
+                        endBox={boxes[end]}
+                        borderRadius={borderRadius}
+                    />
+                )
+            }
         </div>
     );
 };
