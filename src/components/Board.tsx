@@ -5,20 +5,19 @@ const Board = () => {
     const [borderRadius, setBorderRadius] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
     const [boxes] = useState([
-        { id: 'box1', top: 100, left: 100 },
-        { id: 'box2', top: 100, left: 500 },
-        { id: 'box3', top: 400, left: 100 },
-        { id: 'box4', top: 600, left: 500 },
-        { id: 'box5', top: 350, left: 500 },
-        { id: 'box6', top: 100, left: 850 },
-        { id: 'box7', top: 620, left: 950 }
+        { id: 'box0', top: 100, left: 100 },
+        { id: 'box1', top: 100, left: 1000 },
+        { id: 'box2', top: 400, left: 100 },
+        { id: 'box3', top: 400, left: 1000 },
+        { id: 'box4', top: 700, left: 100 },
+        { id: 'box5', top: 700, left: 1000 },
+        { id: 'box6', top: 400, left: 550 }
     ]);
     const [connections] = useState([
-        { start: 0, end: 1 },
-        { start: 2, end: 3 },
-        { start: 4, end: 1 },
-        { start: 2, end: 4 },
-        { start: 6, end: 3 }
+        { start: 0, end: 6 },
+        { start: 2, end: 6 },
+        { start: 1, end: 6 },
+        { start: 5, end: 6 }
     ]);
 
     const updateBorderRadius = () => {
@@ -28,7 +27,7 @@ const Board = () => {
     };
 
     return (
-        <div>
+        <div className="board">
             <h1>CSS Connectors</h1>
             <div className='controls'>
                 <label>{'Curvy-ness (10-200)'}</label>

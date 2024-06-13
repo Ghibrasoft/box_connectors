@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { getBoxPositions } from "../helpers/getBoxPositions";
 
-const Connector = ({ startBox, endBox, borderRadius }: any) => {
+interface IConnectorProps {
+    startBox: { id: string };
+    endBox: { id: string };
+    borderRadius: number;
+}
+const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }) => {
     const [connectorStyle, setConnectorStyle] = useState({
         top: 0,
         left: 0,
@@ -29,6 +34,7 @@ const Connector = ({ startBox, endBox, borderRadius }: any) => {
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2);
 
+        // props vertical & horizontal
         const getCenterStyle = (v: string, h: string) => {
             return {
                 height: (height / 2) - borderWidth,

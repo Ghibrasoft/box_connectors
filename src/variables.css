@@ -1,0 +1,10 @@
+:root {
+  --box-width: 200px;
+  --box-height: 200px;
+  --dot-width: 10px;
+  --dot-height: 10px;
+
+  --bg-color: #efe;
+  --border-color: #aea;
+  --dot-color: #ada;
+}
