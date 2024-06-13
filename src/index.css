@@ -1,0 +1,99 @@
+#root {
+  /* width: 100vw; */
+  height: 100vh;
+  position: "relative";
+}
+
+h1 {
+  margin-left: 20px;
+  font-size: 150%;
+}
+
+.controls {
+  margin-left: 20px;
+
+  label {
+    margin-right: 10px;
+  }
+
+  input {
+    width: 50px;
+  }
+}
+
+.box {
+  height: 200px;
+  width: 200px;
+  background-color: #efe;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #aea;
+  font-size: 130%;
+}
+
+.connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  .line {
+    border-top: 4px solid #ada;
+    width: 100%;
+    height: 0px;
+  }
+
+  .startLine {
+    width: 50%;
+    height: 0px;
+    align-self: flex-start;
+    position: relative;
+  }
+  .startLine::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ada;
+    left: -5px;
+    top: calc(50% - 8px);
+    border-radius: 7px;
+  }
+
+  .endLine {
+    width: 50%;
+    height: 0px;
+    align-self: flex-end;
+    position: relative;
+  }
+  .endLine::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ada;
+    right: -5px;
+    top: calc(50% - 8px);
+    border-radius: 7px;
+  }
+  .centerLine {
+    display: flex;
+    flex-direction: column;
+  }
+  .centerLineTop {
+    border-color: #ada;
+    border-style: solid;
+    border-width: 0;
+    width: 0px;
+    height: 50%;
+  }
+  .centerLineBottom {
+    border-color: #ada;
+    border-style: solid;
+    border-width: 0;
+    width: 0px;
+    height: 50%;
+  }
+}
