@@ -34,7 +34,7 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2);
 
-        // props vertical & horizontal
+        // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
             return {
                 height: (height / 2) - borderWidth,
@@ -73,6 +73,7 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }
         endLineStyle
     } = connectorStyle;
 
+    // console.log('Connector Re-Rendered');
     return (
         <div
             className='connector'

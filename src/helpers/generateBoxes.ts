@@ -1,3 +1,9 @@
+type BoxType = {
+  id: string;
+  top: number;
+  left: number;
+};
+
 export const generateBoxes = (
   boxQuantity: number,
   cols: number,
@@ -5,7 +11,7 @@ export const generateBoxes = (
   initialTop: number,
   initialLeft: number
 ) => {
-  let boxes = [];
+  let boxes: BoxType[] = [];
   let index = 0;
   let row = 0;
   let col = 0;

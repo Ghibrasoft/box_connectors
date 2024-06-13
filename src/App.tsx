@@ -5,7 +5,7 @@ function App() {
   return (
     <div className='wrapper'>
       <Board
-        boxQuantity={6}
+        boxQuantity={7}
       />
     </div>
   )

@@ -2,12 +2,17 @@ import { useRef, useState } from "react";
 import Connector from "./Connector";
 import { generateBoxes } from "../helpers/generateBoxes";
 
+
 interface IBoardProps {
     boxQuantity: number;
     initialTop?: number;
     initialLeft?: number;
     gap?: number;
     cols?: number;
+    connections?: {
+        start: number;
+        end: number;
+    }[]
 }
 const Board: React.FC<IBoardProps> = ({
     boxQuantity,
@@ -15,14 +20,15 @@ const Board: React.FC<IBoardProps> = ({
     initialLeft = 100,
     gap = 300,
     cols = 2,
+    connections = []
 }) => {
     const [borderRadius, setBorderRadius] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
-    const connections = [
-        { start: 0, end: 1 },
-        { start: 2, end: 3 },
-        { start: 4, end: 5 }
-    ];
+    // const connections = [
+    //     { start: 0, end: 1 },
+    //     { start: 2, end: 3 },
+    //     { start: 4, end: 5 }
+    // ];
 
     // dynamically calculate positions of the boxes
     const boxes = generateBoxes(boxQuantity, cols, gap, initialTop, initialLeft);
@@ -34,6 +40,7 @@ const Board: React.FC<IBoardProps> = ({
         }
     };
 
+    // console.log("Board Re-rendered");
     return (
         <div className="board">
             <h1>CSS Connectors</h1>
@@ -54,7 +61,7 @@ const Board: React.FC<IBoardProps> = ({
                 ))
             }
             {
-                connections.map(({ start, end }) =>
+                connections && connections.map(({ start, end }) =>
                     <Connector
                         key={`${start}-${end}`}
                         startBox={boxes[start]}
