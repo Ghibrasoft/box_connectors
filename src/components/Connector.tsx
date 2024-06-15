@@ -4,9 +4,9 @@ import { getBoxPositions } from "../helpers/getBoxPositions";
 interface IConnectorProps {
     startBox: { id: string };
     endBox: { id: string };
-    borderRadius: number;
+    curviness: number;
 }
-const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }) => {
+const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, curviness }) => {
     const [connectorStyle, setConnectorStyle] = useState({
         top: 0,
         left: 0,
@@ -29,7 +29,7 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }
         const left = boxLeft!.right;
         const width = boxRight!.left - left;
         const height = (boxBottom!.bottom - (boxBottom!.height / 2)) - top + borderWidth;
-        const maxBorderRadius = Math.min(borderRadius, width);
+        const maxBorderRadius = Math.min(curviness, width);
         const currentBorderRadius = Math.min(maxBorderRadius, height - borderWidth);
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2);
@@ -59,7 +59,7 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, borderRadius }
             centerLineBottomStyle: getCenterStyle('Bottom', leftIsHigher ? 'Left' : 'Right'),
             endLineStyle: { alignSelf: `flex-${leftIsHigher ? 'end' : 'start'}` }
         });
-    }, [startBox, endBox, borderRadius]);
+    }, [startBox, endBox, curviness]);
 
     useEffect(() => {
         drawConnector();

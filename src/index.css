@@ -76,8 +76,8 @@ html::-moz-scrollbar-thumb:hover {
 
   .box {
     position: absolute;
-    height: 200px;
-    width: 200px;
+    /* height: 200px; */
+    /* width: 200px; */
     background-color: #efe;
     display: flex;
     justify-content: center;

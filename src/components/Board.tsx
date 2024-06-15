@@ -5,6 +5,9 @@ import { generateBoxes } from "../helpers/generateBoxes";
 
 interface IBoardProps {
     boxQuantity: number;
+    width?: number;
+    height?: number;
+    borderRadius?: number;
     initialTop?: number;
     initialLeft?: number;
     gap?: number;
@@ -16,13 +19,16 @@ interface IBoardProps {
 }
 const Board: React.FC<IBoardProps> = ({
     boxQuantity,
+    width = 200,
+    height = 200,
+    borderRadius = 0,
     initialTop = 100,
     initialLeft = 100,
-    gap = 300,
+    gap = 100,
     cols = 2,
     connections = []
 }) => {
-    const [borderRadius, setBorderRadius] = useState(50);
+    const [curviness, setCurviness] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
     // const connections = [
     //     { start: 0, end: 1 },
@@ -31,12 +37,12 @@ const Board: React.FC<IBoardProps> = ({
     // ];
 
     // dynamically calculate positions of the boxes
-    const boxes = generateBoxes(boxQuantity, cols, gap, initialTop, initialLeft);
+    const boxes = generateBoxes({ boxQuantity, width, height, cols, gap, initialTop, initialLeft });
 
 
-    const updateBorderRadius = () => {
+    const updateCurviness = () => {
         if (inputRef.current) {
-            setBorderRadius(parseInt(inputRef.current.value));
+            setCurviness(parseInt(inputRef.current.value));
         }
     };
 
@@ -46,7 +52,7 @@ const Board: React.FC<IBoardProps> = ({
             <h1>CSS Connectors</h1>
             <div className='controls'>
                 <label>{'Curvy-ness (10-200)'}</label>
-                <input ref={inputRef} value={borderRadius} onChange={updateBorderRadius} />
+                <input ref={inputRef} value={curviness} onChange={updateCurviness} />
             </div>
             {
                 boxes.map(({ id, top, left }) => (
@@ -54,7 +60,7 @@ const Board: React.FC<IBoardProps> = ({
                         key={id}
                         id={id}
                         className='box'
-                        style={{ top, left }}
+                        style={{ top, left, width, height, borderRadius: `${borderRadius}px` }}
                     >
                         {id}
                     </div>
@@ -66,7 +72,7 @@ const Board: React.FC<IBoardProps> = ({
                         key={`${start}-${end}`}
                         startBox={boxes[start]}
                         endBox={boxes[end]}
-                        borderRadius={borderRadius}
+                        curviness={curviness}
                     />
                 )
             }
