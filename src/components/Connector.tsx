@@ -5,8 +5,9 @@ interface IConnectorProps {
     startBox: { id: string };
     endBox: { id: string };
     curviness: number;
+    withDot?: boolean;
 }
-const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, curviness }) => {
+const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, curviness, withDot = true }) => {
     const [connectorStyle, setConnectorStyle] = useState({
         top: 0,
         left: 0,
@@ -79,12 +80,12 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, curviness }) =
             className='connector'
             style={{ top, left, width, height }}
         >
-            <div className='line startLine' style={startLineStyle} />
+            <div className='line startLine' style={startLineStyle} data-attr-dot={withDot} />
             <div className='centerLine'>
                 <div className='line centerLineTop' style={centerLineTopStyle} />
                 <div className='line centerLineBottom' style={centerLineBottomStyle} />
             </div>
-            <div className='line endLine' style={endLineStyle} />
+            <div className='line endLine' style={endLineStyle} data-attr-dot={withDot} />
         </div>
     );
 };

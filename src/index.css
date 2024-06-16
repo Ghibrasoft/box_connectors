@@ -78,11 +78,11 @@ html::-moz-scrollbar-thumb:hover {
     position: absolute;
     /* height: 200px; */
     /* width: 200px; */
-    background-color: #efe;
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #aea;
+    border: 2px solid var(--border-color);
     font-size: 130%;
   }
 
@@ -93,7 +93,7 @@ html::-moz-scrollbar-thumb:hover {
     justify-content: center;
 
     .line {
-      border-top: 4px solid #ada;
+      border-top: 4px solid var(--dot-color);
       width: 100%;
       height: 0px;
     }
@@ -105,12 +105,12 @@ html::-moz-scrollbar-thumb:hover {
       align-self: flex-start;
     }
     /* start-dot */
-    .startLine::before {
+    .startLine[data-attr-dot="true"]::before {
       position: absolute;
       content: "";
       width: 10px;
       height: 10px;
-      background-color: #ada;
+      background-color: var(--dot-color);
       left: -5px;
       top: 50%;
       transform: translateY(calc(-50% - 2px));
@@ -124,12 +124,12 @@ html::-moz-scrollbar-thumb:hover {
       align-self: flex-end;
     }
     /* end-dot */
-    .endLine::before {
+    .endLine[data-attr-dot="true"]::before {
       position: absolute;
       content: "";
       width: 10px;
       height: 10px;
-      background-color: #ada;
+      background-color: var(--dot-color);
       right: -5px;
       top: 50%;
       transform: translateY(calc(-50% - 2px));
@@ -141,14 +141,14 @@ html::-moz-scrollbar-thumb:hover {
       flex-direction: column;
     }
     .centerLineTop {
-      border-color: #ada;
+      border-color: var(--dot-color);
       border-style: solid;
       border-width: 0;
       width: 0px;
       height: 50%;
     }
     .centerLineBottom {
-      border-color: #ada;
+      border-color: var(--dot-color);
       border-style: solid;
       border-width: 0;
       width: 0px;

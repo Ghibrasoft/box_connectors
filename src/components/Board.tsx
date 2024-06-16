@@ -16,6 +16,7 @@ interface IBoardProps {
         start: number;
         end: number;
     }[]
+    withDot?: boolean
 }
 const Board: React.FC<IBoardProps> = ({
     boxQuantity,
@@ -26,7 +27,8 @@ const Board: React.FC<IBoardProps> = ({
     initialLeft = 100,
     gap = 100,
     cols = 2,
-    connections = []
+    connections = [],
+    withDot = true
 }) => {
     const [curviness, setCurviness] = useState(50);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +75,7 @@ const Board: React.FC<IBoardProps> = ({
                         startBox={boxes[start]}
                         endBox={boxes[end]}
                         curviness={curviness}
+                        withDot={withDot}
                     />
                 )
             }
