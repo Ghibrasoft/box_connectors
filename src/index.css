@@ -48,111 +48,105 @@ html::-moz-scrollbar-thumb:hover {
   background: #aea;
 }
 
+/* =============== BOX CONNECTORS =============== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .wrapper {
   /* width: 100vw; */
+  margin-top: 50px;
   height: 100vh;
-}
 
-.board {
-  position: relative;
-  height: 100%;
+  .board {
+    /* position: relative; */
+    /* height: 100%; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    gap: 20px;
 
-  h1 {
-    margin-left: 20px;
-    font-size: 150%;
-  }
-
-  .controls {
-    margin-left: 20px;
-
-    label {
-      margin-right: 10px;
-    }
-
-    input {
-      width: 50px;
-    }
-  }
-
-  .box {
-    position: absolute;
-    /* height: 200px; */
-    /* width: 200px; */
-    background-color: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid var(--border-color);
-    font-size: 130%;
-  }
-
-  .connector {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .line {
-      border-top: 4px solid var(--dot-color);
-      width: 100%;
-      height: 0px;
-    }
-
-    .startLine {
-      position: relative;
-      width: 50%;
-      height: 0px;
-      align-self: flex-start;
-    }
-    /* start-dot */
-    .startLine[data-attr-dot="true"]::before {
-      position: absolute;
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: var(--dot-color);
-      left: -5px;
-      top: 50%;
-      transform: translateY(calc(-50% - 2px));
-      border-radius: 50%;
-    }
-
-    .endLine {
-      position: relative;
-      width: 50%;
-      height: 0px;
-      align-self: flex-end;
-    }
-    /* end-dot */
-    .endLine[data-attr-dot="true"]::before {
-      position: absolute;
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: var(--dot-color);
-      right: -5px;
-      top: 50%;
-      transform: translateY(calc(-50% - 2px));
-      border-radius: 50%;
-    }
-
-    .centerLine {
+    .box {
+      /* position: absolute; */
+      /* height: 200px; */
+      /* width: 200px; */
+      background-color: var(--bg-color);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--border-color);
+      font-size: 130%;
     }
-    .centerLineTop {
-      border-color: var(--dot-color);
-      border-style: solid;
-      border-width: 0;
-      width: 0px;
-      height: 50%;
-    }
-    .centerLineBottom {
-      border-color: var(--dot-color);
-      border-style: solid;
-      border-width: 0;
-      width: 0px;
-      height: 50%;
+
+    .connector {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .line {
+        border-top: 4px solid var(--dot-color);
+        width: 100%;
+        height: 0px;
+      }
+
+      .startLine {
+        position: relative;
+        width: 50%;
+        height: 0px;
+        align-self: flex-start;
+      }
+      /* start-dot */
+      .startLine[data-attr-dot="true"]::before {
+        position: absolute;
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: var(--dot-color);
+        left: -5px;
+        top: 50%;
+        transform: translateY(calc(-50% - 2px));
+        border-radius: 50%;
+      }
+
+      .endLine {
+        position: relative;
+        width: 50%;
+        height: 0px;
+        align-self: flex-end;
+      }
+      /* end-dot */
+      .endLine[data-attr-dot="true"]::before {
+        position: absolute;
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: var(--dot-color);
+        right: -5px;
+        top: 50%;
+        transform: translateY(calc(-50% - 2px));
+        border-radius: 50%;
+      }
+
+      .centerLine {
+        display: flex;
+        flex-direction: column;
+      }
+      .centerLineTop {
+        border-color: var(--dot-color);
+        border-style: solid;
+        border-width: 0;
+        width: 0px;
+        height: 50%;
+      }
+      .centerLineBottom {
+        border-color: var(--dot-color);
+        border-style: solid;
+        border-width: 0;
+        width: 0px;
+        height: 50%;
+      }
     }
   }
 }
