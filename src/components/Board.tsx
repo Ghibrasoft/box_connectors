@@ -8,12 +8,14 @@ interface IBoardProps {
         start: number;
         end: number;
     }[]
+    className?: string;
     withDot?: boolean
     lineCurviness?: number;
 }
 const Board: React.FC<IBoardProps> = ({
     children,
     connections = [],
+    className,
     withDot = true,
     lineCurviness = 50
 }) => {
@@ -34,7 +36,7 @@ const Board: React.FC<IBoardProps> = ({
 
     // console.log("Board Re-rendered");
     return (
-        <div className="board">
+        <div className={`board ${className}`}>
             {children}
             {
                 connections && connections.map(({ start, end }) =>

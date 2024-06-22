@@ -3,60 +3,11 @@
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
-}
-/* Custom scrollbar styles */
-/* WebKit browsers */
-html::-webkit-scrollbar {
-  width: 12px;
-}
-
-html::-webkit-scrollbar-track {
-  background: #efe;
-}
-
-html::-webkit-scrollbar-thumb {
-  background: #ada;
-  border-radius: 6px;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: #aea;
-}
-
-/* Firefox */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #ada #efe;
-}
-
-/* CSS for scrollbar track and thumb */
-html::-moz-scrollbar {
-  width: 12px;
-}
-
-html::-moz-scrollbar-track {
-  background: #efe;
-}
-
-html::-moz-scrollbar-thumb {
-  background: #ada;
-  border-radius: 6px;
-}
-
-html::-moz-scrollbar-thumb:hover {
-  background: #aea;
+  box-sizing: border-box;
 }
 
 /* =============== BOX CONNECTORS =============== */
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .wrapper {
-  /* width: 100vw; */
-  margin-top: 50px;
   height: 100vh;
 
   .board {
@@ -76,7 +27,6 @@ html::-moz-scrollbar-thumb:hover {
       justify-content: center;
       align-items: center;
       border: 2px solid var(--border-color);
-      font-size: 130%;
     }
 
     .connector {

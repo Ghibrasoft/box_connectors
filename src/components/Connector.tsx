@@ -33,13 +33,13 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const maxBorderRadius = Math.min(lineCurviness, width);
         const currentBorderRadius = Math.min(maxBorderRadius, height - borderWidth);
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
-        const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2);
+        const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWidth;
 
         // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
             return {
-                height: (height / 2) - borderWidth,
-                width: `${widthAndMargin}px`,
+                height: (height / 2),
+                width: `${widthAndMargin + borderWidth}px`,
                 [`margin${h}`]: `${widthAndMargin}px`,
                 [`border${v}${h}Width`]: borderWidth,
                 [`border${h}Width`]: borderWidth,

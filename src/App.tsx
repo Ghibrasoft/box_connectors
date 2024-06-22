@@ -6,6 +6,7 @@ function App() {
   return (
     <div className='wrapper'>
       <Board
+        className='my-board'
         lineCurviness={50}
         connections={[
           { start: 0, end: 1 },
@@ -20,6 +21,10 @@ function App() {
               key={index}
               id={`box${index}`}
               className='box'
+              style={{
+                width: '200px',
+                height: '150px'
+              }}
             >
               {`box${index}`}
             </div>
