@@ -22,7 +22,7 @@
       /* position: absolute; */
       /* height: 200px; */
       /* width: 200px; */
-      background-color: var(--bg-color);
+      background: var(--bg-color);
       display: flex;
       justify-content: center;
       align-items: center;

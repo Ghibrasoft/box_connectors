@@ -6,8 +6,6 @@ function App() {
   return (
     <div className='wrapper'>
       <Board
-        className='my-board'
-        lineCurviness={50}
         connections={[
           { start: 0, end: 1 },
           { start: 0, end: 3 },
