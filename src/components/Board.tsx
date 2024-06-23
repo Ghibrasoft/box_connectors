@@ -3,7 +3,7 @@ import Connector from "./Connector";
 
 
 interface IBoardProps {
-    children?: React.ReactNode;
+    children: React.ReactNode;
     connections?: {
         start: number;
         end: number;
