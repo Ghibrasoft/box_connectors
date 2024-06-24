@@ -15,22 +15,30 @@ export const getBoxPositions = (startId: string, endId: string) => {
   return {
     boxTop: {
       top: startBoxRect.top + scrollTop,
+      bottom: startBoxRect.bottom + scrollTop,
       height: startBoxRect.height,
-    },
-    boxBottom: {
-      bottom: endBoxRect.bottom + scrollTop,
-      height: endBoxRect.height,
-    },
-    boxLeft: {
       left: startBoxRect.left + scrollLeft,
       right: startBoxRect.right + scrollLeft,
+    },
+    boxBottom: {
+      top: endBoxRect.top + scrollTop,
+      bottom: endBoxRect.bottom + scrollTop,
+      height: endBoxRect.height,
+      left: endBoxRect.left + scrollLeft,
+      right: endBoxRect.right + scrollLeft,
+    },
+    boxLeft: {
       top: startBoxRect.top + scrollTop,
+      bottom: startBoxRect.bottom + scrollTop,
+      left: startBoxRect.left + scrollLeft,
+      right: startBoxRect.right + scrollLeft,
       height: startBoxRect.height,
     },
     boxRight: {
+      top: endBoxRect.top + scrollTop,
+      bottom: endBoxRect.bottom + scrollTop,
       left: endBoxRect.left + scrollLeft,
       right: endBoxRect.right + scrollLeft,
-      top: endBoxRect.top + scrollTop,
       height: endBoxRect.height,
     },
   };

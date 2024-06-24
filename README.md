@@ -46,6 +46,10 @@ function App() {
 export default App;
 ```
 
+### Note:
+
+Keep in mind that start box must be left side, end box right side
+
 ### Sample result
 
 ![screenshot](https://github.com/Ghibrasoft/box_connectors/assets/96905686/ece701bf-4c32-4a32-8202-3400773aba49)

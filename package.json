@@ -21,6 +21,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ghibrasoft/box_connectors"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
