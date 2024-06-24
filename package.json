@@ -1,7 +1,7 @@
 {
-  "name": "box-connect",
+  "name": "@ghibrasoft/box-connector",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.2",
   "type": "module",
   "description": "Box connector with smooth lines",
   "main": "dist/index.umd.js",

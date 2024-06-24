@@ -73,6 +73,10 @@
       transform: translateY(calc(-50% - 2px));
       border-radius: 50%;
     }
+    .endLine[data-attr-dot="true"][data-attr-dot-left="true"]::before {
+      left: -5px;
+      right: unset;
+    }
 
     .centerLine {
       display: flex;

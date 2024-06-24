@@ -3,7 +3,7 @@
 ### 1. Get a copy of the plugin through `npm`
 
 ```
-$ npm i box-connect
+$ npm i @ghibrasoft/box-connector
 ```
 
 ### 2. Load the required files
@@ -48,13 +48,28 @@ export default App;
 
 ### Note:
 
-Keep in mind that start box must be left side, end box right side.
+- Ensure the `start box` is positioned on the left side and the `end box` on the right side. `(not under each other)`
 
-Keys must be unique.
+  In this case:
+
+  ```jsx
+    `correct` --> { start: 0, end: 1 },
+    `wrong` --> { start: 0, end: 2 }, <-- The start box is positioned above the end box
+  ```
+
+- Don't repeat `{start: Number, end: Number}` pairs in `connections[]`.
+
+  Example:
+
+```jsx
+    { start: 0, end: 3 }, <--
+    { start: 0, end: 3 }, <--
+    { start: 6, end: 5 },
+```
 
 ### Sample result
 
-![screenshot](https://github.com/Ghibrasoft/box_connectors/assets/96905686/ece701bf-4c32-4a32-8202-3400773aba49)
+![screenshot](https://github.com/Ghibrasoft/box_connectors/assets/96905686/568b3da5-a016-4bfd-9260-0a5b1aed9ca0)
 
 ### Core options
 

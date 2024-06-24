@@ -13,6 +13,8 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         left: 0,
         width: 0,
         height: 0,
+        isSameLine: false,
+        isUnderLeft: false,
         startLineStyle: {},
         centerLineTopStyle: {},
         centerLineBottomStyle: {},
@@ -24,10 +26,13 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const { id: startId } = startBox;
         const { id: endId } = endBox;
 
-        const { boxTop, boxBottom, boxLeft, boxRight } = getBoxPositions(startId, endId);
+        const { boxLeft, boxRight } = getBoxPositions(startId, endId);
         const leftIsHigher = boxLeft!.top < boxRight!.top;
         const rightIsHigher = boxRight!.top < boxLeft!.top;
+        const isSameLine = boxLeft!.top === boxRight!.top;
         const isUnderLeft = boxLeft!.bottom < boxRight!.top && boxLeft!.left === boxRight!.left;
+        const isRightFirst = boxRight!.left < boxLeft!.left;
+        if (isUnderLeft || startId === endId || isRightFirst) return;
 
         const top = leftIsHigher
             ? boxLeft!.top + (boxLeft!.height / 2)
@@ -42,6 +47,8 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWidth;
 
+        // TODO: NEED FIX!!! calculate end line left position based on isUnderLeft condition
+        const endLineLeft = isUnderLeft ? -boxRight!.left : boxRight!.left; // need dynamic value for 1st condition
 
         // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
@@ -63,12 +70,18 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
             left,
             width,
             height,
+            isSameLine,
+            isUnderLeft,
             startLineStyle: { alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}` },
             centerLineTopStyle: getCenterStyle('Top', leftIsHigher ? 'Right' : 'Left'),
             centerLineBottomStyle: getCenterStyle('Bottom', isUnderLeft ? 'Right' : leftIsHigher ? 'Left' : 'Right'),
-            endLineStyle: { alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}` }
+            endLineStyle: {
+                alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}`,
+                left: isUnderLeft ? `${endLineLeft}px` : '',
+            }
         });
     }, [startBox, endBox, lineCurviness]);
+
 
 
     useEffect(() => {
@@ -77,6 +90,8 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
 
     const {
         top, left, width, height,
+        isSameLine,
+        isUnderLeft,
         startLineStyle,
         centerLineTopStyle,
         centerLineBottomStyle,
@@ -90,11 +105,13 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
             style={{ top, left, width, height }}
         >
             <div className='line startLine' style={startLineStyle} data-attr-dot={withDot} />
-            <div className='centerLine'>
-                <div className='line centerLineTop' style={centerLineTopStyle} />
-                <div className='line centerLineBottom' style={centerLineBottomStyle} />
-            </div>
-            <div className='line endLine' style={endLineStyle} data-attr-dot={withDot} />
+            {isSameLine ? null :
+                <div className='centerLine'>
+                    <div className='line centerLineTop' style={centerLineTopStyle} />
+                    <div className='line centerLineBottom' style={centerLineBottomStyle} />
+                </div>
+            }
+            <div className='line endLine' style={endLineStyle} data-attr-dot={withDot} data-attr-dot-left={isUnderLeft} />
         </div>
     );
 };
