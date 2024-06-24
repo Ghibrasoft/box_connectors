@@ -29,6 +29,7 @@ function App() {
           { start: 0, end: 1 },
           { start: 0, end: 3 },
           { start: 2, end: 5 },
+          { start: 6, end: 5 },
         ]}
         lineCurviness={50}
         withDot={true}
