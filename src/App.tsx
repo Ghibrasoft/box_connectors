@@ -11,7 +11,10 @@ function App() {
           // { start: 0, end: 3 },
           // { start: 2, end: 5 },
           // { start: 6, end: 5 },
+
+          { start: 0, end: 2 },
           { start: 0, end: 4 },
+          { start: 0, end: 6 },
         ]}
         lineCurviness={50}
         withDot={true}

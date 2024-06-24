@@ -33,6 +33,7 @@ export const getBoxPositions = (startId: string, endId: string) => {
       left: startBoxRect.left + scrollLeft,
       right: startBoxRect.right + scrollLeft,
       height: startBoxRect.height,
+      width: startBoxRect.width,
     },
     boxRight: {
       top: endBoxRect.top + scrollTop,
@@ -40,6 +41,7 @@ export const getBoxPositions = (startId: string, endId: string) => {
       left: endBoxRect.left + scrollLeft,
       right: endBoxRect.right + scrollLeft,
       height: endBoxRect.height,
+      width: endBoxRect.width,
     },
   };
 };

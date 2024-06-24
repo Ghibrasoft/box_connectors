@@ -48,7 +48,9 @@ export default App;
 
 ### Note:
 
-Keep in mind that start box must be left side, end box right side
+Keep in mind that start box must be left side, end box right side.
+
+Keys must be unique.
 
 ### Sample result
 

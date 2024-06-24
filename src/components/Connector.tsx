@@ -27,11 +27,13 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const { boxTop, boxBottom, boxLeft, boxRight } = getBoxPositions(startId, endId);
         const leftIsHigher = boxLeft!.top < boxRight!.top;
         const rightIsHigher = boxRight!.top < boxLeft!.top;
+        const isUnderLeft = boxLeft!.bottom < boxRight!.top && boxLeft!.left === boxRight!.left;
+
         const top = leftIsHigher
             ? boxLeft!.top + (boxLeft!.height / 2)
             : boxRight!.top + (boxRight!.height / 2);
         const left = boxLeft!.right;
-        const width = boxRight!.left - left;
+        const width = isUnderLeft ? boxLeft!.right + boxLeft!.height / 4 : boxRight!.left - left;
         const height = leftIsHigher
             ? (boxRight!.bottom - (boxRight!.height / 2)) - top + borderWidth
             : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + borderWidth;
@@ -39,6 +41,7 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const currentBorderRadius = Math.min(maxBorderRadius, height - borderWidth);
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWidth;
+
 
         // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
@@ -62,10 +65,11 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
             height,
             startLineStyle: { alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}` },
             centerLineTopStyle: getCenterStyle('Top', leftIsHigher ? 'Right' : 'Left'),
-            centerLineBottomStyle: getCenterStyle('Bottom', leftIsHigher ? 'Left' : 'Right'),
+            centerLineBottomStyle: getCenterStyle('Bottom', isUnderLeft ? 'Right' : leftIsHigher ? 'Left' : 'Right'),
             endLineStyle: { alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}` }
         });
     }, [startBox, endBox, lineCurviness]);
+
 
     useEffect(() => {
         drawConnector();
