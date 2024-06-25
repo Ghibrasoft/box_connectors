@@ -17,7 +17,7 @@ You can load the minimized CSS files in your HTML.
 ### 3. Now you can run the sample
 
 ```jsx
-import { Board } from "box-connect";
+import { Board } from "@ghibrasoft/box-connector";
 
 function App() {
   const boxes = [...Array(7).keys()];

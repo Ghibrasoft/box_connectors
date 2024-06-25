@@ -1,9 +1,10 @@
 {
   "name": "@ghibrasoft/box-connector",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
-  "description": "Box connector with smooth lines",
+  "author": "Ghibrasoft",
+  "description": "Box/Card connector with smooth lines",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -51,6 +52,9 @@
   },
   "keywords": [
     "box",
+    "box-connector",
+    "box-connector-lines",
+    "react",
     "css",
     "line",
     "vite",
@@ -58,6 +62,13 @@
     "react",
     "connector",
     "typescript",
-    "ui components"
-  ]
+    "ghibarsoft",
+    "smooth-lines",
+    "ui components",
+    "connector-lines",
+    "react-box-connector",
+    "cards-connector-lines",
+    "ghibrasoft-box_connectors"
+  ],
+  "license": "MIT"
 }

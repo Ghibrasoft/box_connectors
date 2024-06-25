@@ -34,7 +34,6 @@ const Board: React.FC<IBoardProps> = ({
     };
     const boxes = extractIds();
 
-    // console.log("Board Re-rendered");
     return (
         <div className={`board ${className}`}>
             {children}

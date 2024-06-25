@@ -47,8 +47,8 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWidth;
 
-        // TODO: NEED FIX!!! calculate end line left position based on isUnderLeft condition
-        const endLineLeft = isUnderLeft ? -boxRight!.left : boxRight!.left; // need dynamic value for 1st condition
+        // TODO: calculate end line left position based on isUnderLeft condition
+        const endLineLeft = isUnderLeft ? -boxRight!.left : boxRight!.left; // dyn-val-1st-con
 
         // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
@@ -98,7 +98,6 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         endLineStyle
     } = connectorStyle;
 
-    // console.log('Connector Re-Rendered');
     return (
         <div
             className='connector'
