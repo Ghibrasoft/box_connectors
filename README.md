@@ -8,10 +8,19 @@ $ npm i @ghibrasoft/box-connector
 
 ### 2. Load the required files
 
-You can load the minimized CSS files in your HTML.
+You can load the minimized CSS files in your `HTML`.
 
 ```html
-<link rel="stylesheet" href="node_modules/box-connect/dist/style.css" />
+<link
+  rel="stylesheet"
+  href="/node_modules/@ghibrasoft/box-connector/dist/style.css"
+/>
+```
+
+Or in main `CSS`.
+
+```css
+@import "/node_modules/@ghibrasoft/box-connector/dist/style.css";
 ```
 
 ### 3. Now you can run the sample
