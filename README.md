@@ -20,10 +20,6 @@ Define these 3 variable names:
 
 ---
 
----
-
----
-
 Load the minimized CSS files in your `HTML`.
 
 ```html
