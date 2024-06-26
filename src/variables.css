@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #eff6ff;
-  --border-color: #93c5fd;
-  --dot-color: #93c5fd;
+  --connector-line-thickness: 4px;
+  --connector-line-color: #d1d5db;
+  --connector-line-color-active: #4ade80;
 }

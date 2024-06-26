@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Connector from "./Connector";
 
 
@@ -7,17 +7,20 @@ interface IBoardProps {
     connections?: {
         start: number;
         end: number;
+        isActive?: boolean
     }[]
     className?: string;
-    withDot?: boolean
+    withDot?: boolean;
     lineCurviness?: number;
+    borderWeight?: 4 | 2 | 8 | 10 | 12;
 }
 const Board: React.FC<IBoardProps> = ({
     children,
     connections = [],
     className,
     withDot = true,
-    lineCurviness = 50
+    lineCurviness,
+    borderWeight,
 }) => {
     // function to extract IDs from children
     const extractIds = () => {
@@ -38,13 +41,15 @@ const Board: React.FC<IBoardProps> = ({
         <div className={`board ${className}`}>
             {children}
             {
-                connections && connections.map(({ start, end }) =>
+                connections && connections.map(({ start, end, isActive = false }) =>
                     <Connector
                         key={`${start}-${end}`}
                         startBox={{ id: boxes[start] }}
                         endBox={{ id: boxes[end] }}
                         withDot={withDot}
                         lineCurviness={lineCurviness}
+                        isActive={isActive}
+                        borderWeight={borderWeight}
                     />
                 )
             }
@@ -52,4 +57,4 @@ const Board: React.FC<IBoardProps> = ({
     );
 };
 
-export default Board;
+export default memo(Board);

@@ -8,7 +8,23 @@ $ npm i @ghibrasoft/box-connector
 
 ### 2. Load the required files
 
-You can load the minimized CSS files in your `HTML`.
+Define these 3 variable names:
+
+```css
+:root {
+  --connector-line-thickness: 4px; // default value
+  --connector-line-color: #d1d5db; // default value
+  --connector-line-color-active: #4ade80; // default value
+}
+```
+
+---
+
+---
+
+---
+
+Load the minimized CSS files in your `HTML`.
 
 ```html
 <link
@@ -26,26 +42,37 @@ Or in main `CSS`.
 ### 3. Now you can run the sample
 
 ```jsx
+import { useState } from "react";
 import { Board } from "@ghibrasoft/box-connector";
 
 function App() {
   const boxes = [...Array(7).keys()];
+  const [activeStates, setActiveStates] = useState(boxes.map(() => false));
+  const CONNECTIONS = [
+    { start: 0, end: 1, isActive: activeStates[0] },
+    { start: 0, end: 3, isActive: activeStates[0] },
+    { start: 2, end: 5, isActive: activeStates[2] },
+    { start: 6, end: 5, isActive: activeStates[6] },
+  ];
+  const uniqueIds = Array.from(new Set(CONNECTIONS.map((conn) => conn.start)));
+
+  const toggleIsActive = (index: number) => {
+    setActiveStates((prevStates) =>
+      prevStates.map((state, ind) => (ind === index ? !state : state))
+    );
+  };
 
   return (
     <div>
-      <Board
-        connections={[
-          { start: 0, end: 1 },
-          { start: 0, end: 3 },
-          { start: 2, end: 5 },
-          { start: 6, end: 5 },
-        ]}
-        lineCurviness={50}
-        withDot={true}
-      >
+      <Board connections={CONNECTIONS} withDot={true} lineCurviness={50}>
         {boxes.map((_, index) => (
-          <div key={index} id={`box${index}`} className="box">
+          <div key={index} className="box" id={`box${index}`}>
             {`box${index}`}
+            {uniqueIds.includes(index) && (
+              <button onClick={() => toggleIsActive(index)}>
+                Toggle isActive
+              </button>
+            )}
           </div>
         ))}
       </Board>
@@ -77,9 +104,13 @@ export default App;
     { start: 6, end: 5 },
 ```
 
+- `isActive: activeStates[0]` <-- Specify the index of the toggle box if needed. `(Default: false)`
+
+- Make sure that `--connector-line-thickness` and `borderWeight` values are the same.
+
 ### Sample result
 
-![screenshot](https://github.com/Ghibrasoft/box_connectors/assets/96905686/568b3da5-a016-4bfd-9260-0a5b1aed9ca0)
+![screenshot](https://github.com/Ghibrasoft/box_connectors/assets/96905686/4fda7054-14d4-4562-a3b0-e551c60e37c2)
 
 ### Core options
 
@@ -90,3 +121,4 @@ export default App;
 | className     | `''`          | `String (optional)`                           | Custom CSS class name for styling purposes                                |
 | lineCurviness | `50`          | `Number (optional)`                           | Sets the curviness of connector lines. `(min: 10 , max: 200)`             |
 | withDot       | `true`        | `Boolean (optional)`                          | Determines whether dots are displayed at the start and end of connectors. |
+| borderWeight  | 4             | 4 , 2 , 8 , 10 , 12                           | Sets line thickness.                                                      |

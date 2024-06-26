@@ -1,13 +1,28 @@
-import { useCallback, useEffect, useState } from "react";
+import {
+    memo,
+    useCallback,
+    useEffect,
+    useState
+} from "react";
 import { getBoxPositions } from "../helpers/getBoxPositions";
+
 
 interface IConnectorProps {
     startBox: { id: string };
     endBox: { id: string };
-    lineCurviness: number;
+    lineCurviness?: number;
     withDot?: boolean;
+    isActive?: boolean;
+    borderWeight?: 4 | 2 | 8 | 10 | 12;
 }
-const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness, withDot = true }) => {
+const Connector: React.FC<IConnectorProps> = ({
+    startBox,
+    endBox,
+    lineCurviness = 50,
+    withDot = true,
+    isActive = false,
+    borderWeight = 4,
+}) => {
     const [connectorStyle, setConnectorStyle] = useState({
         top: 0,
         left: 0,
@@ -22,7 +37,6 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
     });
 
     const drawConnector = useCallback(() => {
-        const borderWidth = 4;
         const { id: startId } = startBox;
         const { id: endId } = endBox;
 
@@ -40,12 +54,12 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const left = boxLeft!.right;
         const width = isUnderLeft ? boxLeft!.right + boxLeft!.height / 4 : boxRight!.left - left;
         const height = leftIsHigher
-            ? (boxRight!.bottom - (boxRight!.height / 2)) - top + borderWidth
-            : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + borderWidth;
+            ? (boxRight!.bottom - (boxRight!.height / 2)) - top + borderWeight
+            : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + borderWeight;
         const maxBorderRadius = Math.min(lineCurviness, width);
-        const currentBorderRadius = Math.min(maxBorderRadius, height - borderWidth);
+        const currentBorderRadius = Math.min(maxBorderRadius, height - borderWeight);
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
-        const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWidth;
+        const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWeight;
 
         // TODO: calculate end line left position based on isUnderLeft condition
         const endLineLeft = isUnderLeft ? -boxRight!.left : boxRight!.left; // dyn-val-1st-con
@@ -54,13 +68,13 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
         const getCenterStyle = (v: string, h: string) => {
             return {
                 height: (height / 2),
-                width: `${widthAndMargin + borderWidth}px`,
+                width: `${widthAndMargin + borderWeight}px`,
                 [`margin${h}`]: `${widthAndMargin}px`,
-                [`border${v}${h}Width`]: borderWidth,
-                [`border${h}Width`]: borderWidth,
+                [`border${v}${h}Width`]: borderWeight,
+                [`border${h}Width`]: borderWeight,
                 [`border${v}Width`]: v === 'Top'
-                    ? Math.min(borderWidth, currentBorderRadius)
-                    : borderWidth,
+                    ? Math.min(borderWeight, currentBorderRadius)
+                    : borderWeight,
                 [`border${v}${h}Radius`]: `${currentBorderRadius}px${shouldSmooth ? ' ' + (currentBorderRadius / 2) + 'px' : ''}`
             };
         };
@@ -72,12 +86,22 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
             height,
             isSameLine,
             isUnderLeft,
-            startLineStyle: { alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}` },
-            centerLineTopStyle: getCenterStyle('Top', leftIsHigher ? 'Right' : 'Left'),
-            centerLineBottomStyle: getCenterStyle('Bottom', isUnderLeft ? 'Right' : leftIsHigher ? 'Left' : 'Right'),
+            startLineStyle: {
+                alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}`,
+                zIndex: isActive ? 10 : ''
+            },
+            centerLineTopStyle: {
+                ...getCenterStyle('Top', leftIsHigher ? 'Right' : 'Left'),
+                zIndex: isActive ? 10 : ''
+            },
+            centerLineBottomStyle: {
+                ...getCenterStyle('Bottom', isUnderLeft ? 'Right' : leftIsHigher ? 'Left' : 'Right'),
+                zIndex: isActive ? 10 : ''
+            },
             endLineStyle: {
                 alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}`,
                 left: isUnderLeft ? `${endLineLeft}px` : '',
+                zIndex: isActive ? 10 : ''
             }
         });
     }, [startBox, endBox, lineCurviness]);
@@ -103,16 +127,35 @@ const Connector: React.FC<IConnectorProps> = ({ startBox, endBox, lineCurviness,
             className='connector'
             style={{ top, left, width, height }}
         >
-            <div className='line startLine' style={startLineStyle} data-attr-dot={withDot} />
+            <div
+                className='line startLine'
+                style={startLineStyle}
+                data-dot={withDot}
+                data-is-active={isActive}
+            />
             {isSameLine ? null :
                 <div className='centerLine'>
-                    <div className='line centerLineTop' style={centerLineTopStyle} />
-                    <div className='line centerLineBottom' style={centerLineBottomStyle} />
+                    <div
+                        className='line centerLineTop'
+                        style={centerLineTopStyle}
+                        data-is-active={isActive}
+                    />
+                    <div
+                        className='line centerLineBottom'
+                        style={centerLineBottomStyle}
+                        data-is-active={isActive}
+                    />
                 </div>
             }
-            <div className='line endLine' style={endLineStyle} data-attr-dot={withDot} data-attr-dot-left={isUnderLeft} />
+            <div
+                className='line endLine'
+                style={endLineStyle}
+                data-dot={withDot}
+                data-is-active={isActive}
+                data-dot-left={isUnderLeft}
+            />
         </div>
     );
 };
 
-export default Connector;
+export default memo(Connector);
