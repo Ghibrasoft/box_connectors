@@ -4,24 +4,17 @@ import {
     useEffect,
     useState
 } from "react";
+import { IConnectorProps } from "../interfaces";
 import { getBoxPositions } from "../helpers/getBoxPositions";
 
 
-interface IConnectorProps {
-    startBox: { id: string };
-    endBox: { id: string };
-    lineCurviness?: number;
-    withDot?: boolean;
-    isActive?: boolean;
-    borderWeight?: 4 | 2 | 8 | 10 | 12;
-}
 const Connector: React.FC<IConnectorProps> = ({
     startBox,
     endBox,
     lineCurviness = 50,
     withDot = true,
     isActive = false,
-    borderWeight = 4,
+    borderWeight = 4
 }) => {
     const [connectorStyle, setConnectorStyle] = useState({
         top: 0,

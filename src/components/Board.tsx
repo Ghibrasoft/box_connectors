@@ -1,19 +1,9 @@
 import React, { memo } from "react";
 import Connector from "./Connector";
+import { IBoardProps } from "../interfaces";
 
 
-interface IBoardProps {
-    children: React.ReactNode;
-    connections?: {
-        start: number;
-        end: number;
-        isActive?: boolean
-    }[]
-    className?: string;
-    withDot?: boolean;
-    lineCurviness?: number;
-    borderWeight?: 4 | 2 | 8 | 10 | 12;
-}
+
 const Board: React.FC<IBoardProps> = ({
     children,
     connections = [],
