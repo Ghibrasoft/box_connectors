@@ -5,6 +5,7 @@ import {
     useState
 } from "react";
 import { IConnectorProps } from "../interfaces";
+import { checkErrors } from "../helpers/checkErrors";
 import { getBoxPositions } from "../helpers/getBoxPositions";
 
 
@@ -21,7 +22,7 @@ const Connector: React.FC<IConnectorProps> = ({
         left: 0,
         width: 0,
         height: 0,
-        isSameLine: false,
+        onTheSameLine: false,
         isUnderLeft: false,
         startLineStyle: {},
         centerLineTopStyle: {},
@@ -36,26 +37,28 @@ const Connector: React.FC<IConnectorProps> = ({
         const { boxLeft, boxRight } = getBoxPositions(startId, endId);
         const leftIsHigher = boxLeft!.top < boxRight!.top;
         const rightIsHigher = boxRight!.top < boxLeft!.top;
-        const isSameLine = boxLeft!.top === boxRight!.top;
-        const isUnderLeft = boxLeft!.bottom < boxRight!.top && boxLeft!.left === boxRight!.left;
+        const onTheSameLine = boxLeft!.top === boxRight!.top;
+
+        // error handling
+        const dublicatedConnections = startId === endId;
         const isRightFirst = boxRight!.left < boxLeft!.left;
-        if (isUnderLeft || startId === endId || isRightFirst) return;
+        const isUnderLeft = boxLeft!.bottom < boxRight!.top && boxLeft!.left === boxRight!.left;
+        if (checkErrors(dublicatedConnections, isRightFirst, isUnderLeft)) return;
 
         const top = leftIsHigher
             ? boxLeft!.top + (boxLeft!.height / 2)
             : boxRight!.top + (boxRight!.height / 2);
         const left = boxLeft!.right;
-        const width = isUnderLeft ? boxLeft!.right + boxLeft!.height / 4 : boxRight!.left - left;
+        const width = boxRight!.left - left;
         const height = leftIsHigher
             ? (boxRight!.bottom - (boxRight!.height / 2)) - top + borderWeight
             : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + borderWeight;
+
+        // border-radius
         const maxBorderRadius = Math.min(lineCurviness, width);
         const currentBorderRadius = Math.min(maxBorderRadius, height - borderWeight);
         const shouldSmooth = currentBorderRadius < maxBorderRadius;
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWeight;
-
-        // TODO: calculate end line left position based on isUnderLeft condition
-        const endLineLeft = isUnderLeft ? -boxRight!.left : boxRight!.left; // dyn-val-1st-con
 
         // props (vertical & horizontal)
         const getCenterStyle = (v: string, h: string) => {
@@ -77,7 +80,7 @@ const Connector: React.FC<IConnectorProps> = ({
             left,
             width,
             height,
-            isSameLine,
+            onTheSameLine,
             isUnderLeft,
             startLineStyle: {
                 alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}`,
@@ -88,12 +91,11 @@ const Connector: React.FC<IConnectorProps> = ({
                 zIndex: isActive ? 10 : ''
             },
             centerLineBottomStyle: {
-                ...getCenterStyle('Bottom', isUnderLeft ? 'Right' : leftIsHigher ? 'Left' : 'Right'),
+                ...getCenterStyle('Bottom', leftIsHigher ? 'Left' : 'Right'),
                 zIndex: isActive ? 10 : ''
             },
             endLineStyle: {
                 alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}`,
-                left: isUnderLeft ? `${endLineLeft}px` : '',
                 zIndex: isActive ? 10 : ''
             }
         });
@@ -107,8 +109,7 @@ const Connector: React.FC<IConnectorProps> = ({
 
     const {
         top, left, width, height,
-        isSameLine,
-        isUnderLeft,
+        onTheSameLine,
         startLineStyle,
         centerLineTopStyle,
         centerLineBottomStyle,
@@ -126,7 +127,7 @@ const Connector: React.FC<IConnectorProps> = ({
                 data-dot={withDot}
                 data-is-active={isActive}
             />
-            {isSameLine ? null :
+            {onTheSameLine ? null :
                 <div className='centerLine'>
                     <div
                         className='line centerLineTop'
@@ -145,7 +146,6 @@ const Connector: React.FC<IConnectorProps> = ({
                 style={endLineStyle}
                 data-dot={withDot}
                 data-is-active={isActive}
-                data-dot-left={isUnderLeft}
             />
         </div>
     );
