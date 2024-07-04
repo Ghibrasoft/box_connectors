@@ -46,9 +46,9 @@
       position: absolute;
       content: "";
       top: 50%;
-      left: -5px;
-      width: 10px;
-      height: 10px;
+      left: var(--connector-dot-x-pos);
+      width: var(--connector-dot-size);
+      height: var(--connector-dot-size);
       border-radius: 50%;
       transform: translateY(calc(-50% - (var(--connector-line-thickness) / 2)));
       background-color: var(--connector-line-color);
@@ -65,15 +65,15 @@
       position: absolute;
       content: "";
       top: 50%;
-      right: -5px;
-      width: 10px;
-      height: 10px;
+      right: var(--connector-dot-x-pos);
+      width: var(--connector-dot-size);
+      height: var(--connector-dot-size);
       border-radius: 50%;
       transform: translateY(calc(-50% - (var(--connector-line-thickness) / 2)));
       background-color: var(--connector-line-color);
     }
     .endLine[data-dot="true"][data-dot-left="true"]::before {
-      left: -5px;
+      left: var(--connector-dot-x-pos);
       right: unset;
     }
 

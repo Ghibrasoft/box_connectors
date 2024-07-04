@@ -117,4 +117,4 @@ export default App;
 | className     | `''`          | `String (optional)`                           | Custom CSS class name for styling purposes                                |
 | lineCurviness | `50`          | `Number (optional)`                           | Sets the curviness of connector lines. `(min: 10 , max: 200)`             |
 | withDot       | `true`        | `Boolean (optional)`                          | Determines whether dots are displayed at the start and end of connectors. |
-| borderWeight  | `4`           | `4 , 2 , 8 , 10 , 12 (optional)`              | Sets line thickness.                                                      |
+| borderWeight  | `4`           | `4 , 2 , 8 (optional)`                        | Sets line thickness.                                                      |

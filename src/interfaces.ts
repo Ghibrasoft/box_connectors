@@ -10,7 +10,7 @@ export interface IBoardProps {
   className?: string;
   withDot?: boolean;
   lineCurviness?: number;
-  borderWeight?: 4 | 2 | 8 | 10 | 12;
+  borderWeight?: 2 | 4 | 8;
 }
 
 export interface IConnectorProps {
@@ -19,5 +19,5 @@ export interface IConnectorProps {
   lineCurviness?: number;
   withDot?: boolean;
   isActive?: boolean;
-  borderWeight?: 4 | 2 | 8 | 10 | 12;
+  borderWeight?: 2 | 4 | 8;
 }

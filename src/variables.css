@@ -2,4 +2,6 @@
   --connector-line-thickness: 4px;
   --connector-line-color: #d1d5db;
   --connector-line-color-active: #4ade80;
+  --connector-dot-size: 10px;
+  --connector-dot-x-pos: calc(var(--connector-dot-size) / -2);
 }

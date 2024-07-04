@@ -50,9 +50,10 @@ const Connector: React.FC<IConnectorProps> = ({
             : boxRight!.top + (boxRight!.height / 2);
         const left = boxLeft!.right;
         const width = boxRight!.left - left;
+        const calculatedBorderWeight = borderWeight === 2 ? borderWeight / 2 : borderWeight;
         const height = leftIsHigher
-            ? (boxRight!.bottom - (boxRight!.height / 2)) - top + borderWeight
-            : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + borderWeight;
+            ? (boxRight!.bottom - (boxRight!.height / 2)) - top + calculatedBorderWeight
+            : (boxLeft!.bottom - (boxLeft!.height / 2)) - top + calculatedBorderWeight;
 
         // border-radius
         const maxBorderRadius = Math.min(lineCurviness, width);
@@ -88,11 +89,11 @@ const Connector: React.FC<IConnectorProps> = ({
             },
             centerLineTopStyle: {
                 ...getCenterStyle('Top', leftIsHigher ? 'Right' : 'Left'),
-                zIndex: isActive ? 10 : ''
+                zIndex: isActive ? 10 : '',
             },
             centerLineBottomStyle: {
                 ...getCenterStyle('Bottom', leftIsHigher ? 'Left' : 'Right'),
-                zIndex: isActive ? 10 : ''
+                zIndex: isActive ? 10 : '',
             },
             endLineStyle: {
                 alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}`,
