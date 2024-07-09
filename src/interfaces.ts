@@ -21,3 +21,16 @@ export interface IConnectorProps {
   isActive?: boolean;
   borderWeight?: 2 | 4 | 8;
 }
+
+export interface IConnectorStyles {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  onTheSameLine: boolean;
+  isUnderLeft: boolean;
+  startLineStyle: React.CSSProperties;
+  centerLineTopStyle: React.CSSProperties;
+  centerLineBottomStyle: React.CSSProperties;
+  endLineStyle: React.CSSProperties;
+}

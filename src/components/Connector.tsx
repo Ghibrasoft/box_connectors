@@ -2,9 +2,10 @@ import {
     memo,
     useCallback,
     useEffect,
+    useMemo,
     useState
 } from "react";
-import { IConnectorProps } from "../interfaces";
+import { IConnectorProps, IConnectorStyles } from "../interfaces";
 import { checkErrors } from "../helpers/checkErrors";
 import { getBoxPositions } from "../helpers/getBoxPositions";
 
@@ -17,7 +18,7 @@ const Connector: React.FC<IConnectorProps> = ({
     isActive = false,
     borderWeight = 4
 }) => {
-    const [connectorStyle, setConnectorStyle] = useState({
+    const [connectorStyle, setConnectorStyle] = useState<IConnectorStyles>({
         top: 0,
         left: 0,
         width: 0,
@@ -61,19 +62,15 @@ const Connector: React.FC<IConnectorProps> = ({
         const widthAndMargin = shouldSmooth ? currentBorderRadius : (currentBorderRadius / 2) + borderWeight;
 
         // props (vertical & horizontal)
-        const getCenterStyle = (v: string, h: string) => {
-            return {
-                height: (height / 2),
-                width: `${widthAndMargin + borderWeight}px`,
-                [`margin${h}`]: `${widthAndMargin}px`,
-                [`border${v}${h}Width`]: borderWeight,
-                [`border${h}Width`]: borderWeight,
-                [`border${v}Width`]: v === 'Top'
-                    ? Math.min(borderWeight, currentBorderRadius)
-                    : borderWeight,
-                [`border${v}${h}Radius`]: `${currentBorderRadius}px${shouldSmooth ? ' ' + (currentBorderRadius / 2) + 'px' : ''}`
-            };
-        };
+        const getCenterStyle = (v: string, h: string) => ({
+            height: height / 2,
+            width: `${widthAndMargin + borderWeight}px`,
+            [`margin${h}`]: `${widthAndMargin}px`,
+            [`border${v}${h}Width`]: borderWeight,
+            [`border${h}Width`]: borderWeight,
+            [`border${v}Width`]: v === "Top" ? Math.min(borderWeight, currentBorderRadius) : borderWeight,
+            [`border${v}${h}Radius`]: `${currentBorderRadius}px${shouldSmooth ? ` ${currentBorderRadius / 2}px` : ""}`,
+        });
 
         setConnectorStyle({
             top,
@@ -116,6 +113,12 @@ const Connector: React.FC<IConnectorProps> = ({
         endLineStyle
     } = connectorStyle;
 
+    // memoized styles for performance
+    const memoizedStartLineStyle = useMemo(() => startLineStyle, [startLineStyle]);
+    const memoizedCenterLineTopStyle = useMemo(() => centerLineTopStyle, [centerLineTopStyle]);
+    const memoizedCenterLineBottomStyle = useMemo(() => centerLineBottomStyle, [centerLineBottomStyle]);
+    const memoizedEndLineStyle = useMemo(() => endLineStyle, [endLineStyle]);
+
     return (
         <div
             className='connector'
@@ -123,27 +126,27 @@ const Connector: React.FC<IConnectorProps> = ({
         >
             <div
                 className='line startLine'
-                style={startLineStyle}
+                style={memoizedStartLineStyle}
                 data-dot={withDot}
                 data-is-active={isActive}
             />
-            {onTheSameLine ? null :
+            {!onTheSameLine &&
                 <div className='centerLine'>
                     <div
                         className='line centerLineTop'
-                        style={centerLineTopStyle}
+                        style={memoizedCenterLineTopStyle}
                         data-is-active={isActive}
                     />
                     <div
                         className='line centerLineBottom'
-                        style={centerLineBottomStyle}
+                        style={memoizedCenterLineBottomStyle}
                         data-is-active={isActive}
                     />
                 </div>
             }
             <div
                 className='line endLine'
-                style={endLineStyle}
+                style={memoizedEndLineStyle}
                 data-dot={withDot}
                 data-is-active={isActive}
             />
