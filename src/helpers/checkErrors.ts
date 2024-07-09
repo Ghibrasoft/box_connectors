@@ -3,7 +3,7 @@ const DOCS_LINK =
 export const checkErrors = (
   dublicatedConnections: boolean,
   isRightFirst: boolean,
-  isUnderLeft: boolean
+  isUnderEachOther: boolean
 ) => {
   if (dublicatedConnections) {
     console.error(`The start and end boxes cannot be the same. (${DOCS_LINK})`);
@@ -15,9 +15,9 @@ export const checkErrors = (
     );
     return true;
   }
-  if (isUnderLeft) {
+  if (isUnderEachOther) {
     console.error(
-      `The end box cannot be directly below the start box. (${DOCS_LINK})`
+      `The end box cannot be directly below each other. (${DOCS_LINK})`
     );
     return true;
   }

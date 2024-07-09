@@ -24,7 +24,7 @@ const Connector: React.FC<IConnectorProps> = ({
         width: 0,
         height: 0,
         onTheSameLine: false,
-        isUnderLeft: false,
+        isUnderEachOther: false,
         startLineStyle: {},
         centerLineTopStyle: {},
         centerLineBottomStyle: {},
@@ -43,8 +43,8 @@ const Connector: React.FC<IConnectorProps> = ({
         // error handling
         const dublicatedConnections = startId === endId;
         const isRightFirst = boxRight!.left < boxLeft!.left;
-        const isUnderLeft = boxLeft!.bottom < boxRight!.top && boxLeft!.left === boxRight!.left;
-        if (checkErrors(dublicatedConnections, isRightFirst, isUnderLeft)) return;
+        const isUnderEachOther = boxLeft!.left === boxRight!.left && (boxLeft!.bottom > boxRight!.top || boxLeft!.bottom < boxRight!.top);
+        if (checkErrors(dublicatedConnections, isRightFirst, isUnderEachOther)) return;
 
         const top = leftIsHigher
             ? boxLeft!.top + (boxLeft!.height / 2)
@@ -78,7 +78,7 @@ const Connector: React.FC<IConnectorProps> = ({
             width,
             height,
             onTheSameLine,
-            isUnderLeft,
+            isUnderEachOther,
             startLineStyle: {
                 alignSelf: `flex-${leftIsHigher ? 'start' : rightIsHigher ? 'end' : 'start'}`,
                 zIndex: isActive ? 10 : ''
@@ -92,7 +92,7 @@ const Connector: React.FC<IConnectorProps> = ({
                 zIndex: isActive ? 10 : ''
             },
             endLineStyle: {
-                alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : 'end'}`,
+                alignSelf: `flex-${leftIsHigher ? 'end' : rightIsHigher ? 'start' : onTheSameLine ? 'start' : 'end'}`,
                 zIndex: isActive ? 10 : ''
             }
         });
@@ -121,6 +121,7 @@ const Connector: React.FC<IConnectorProps> = ({
 
     return (
         <div
+            aria-hidden
             className='connector'
             style={{ top, left, width, height }}
         >

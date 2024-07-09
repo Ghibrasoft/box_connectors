@@ -28,7 +28,7 @@ export interface IConnectorStyles {
   width: number;
   height: number;
   onTheSameLine: boolean;
-  isUnderLeft: boolean;
+  isUnderEachOther: boolean;
   startLineStyle: React.CSSProperties;
   centerLineTopStyle: React.CSSProperties;
   centerLineBottomStyle: React.CSSProperties;
