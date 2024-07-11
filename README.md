@@ -1,3 +1,11 @@
+# @ghibrasoft/box-connector
+
+**Smooth Line Connector for Boxes and Cards**
+
+## Description
+
+`@ghibrasoft/box-connector` is a simple and efficient tool for creating smooth line connectors between boxes or cards in your UI. It is designed to provide seamless integration and high customization for various projects needing box connectors.
+
 ## Getting started
 
 ### 1. Get a copy of the plugin through `npm`
@@ -79,7 +87,7 @@ function App() {
 export default App;
 ```
 
-### Note:
+### Important Notes:
 
 - Ensure the `start box` is positioned on the left side and the `end box` on the right side. `(not under each other)`
 
@@ -117,4 +125,4 @@ export default App;
 | className     | `''`          | `String (optional)`                           | Custom CSS class name for styling purposes                                |
 | lineCurviness | `50`          | `Number (optional)`                           | Sets the curviness of connector lines. `(min: 10 , max: 200)`             |
 | withDot       | `true`        | `Boolean (optional)`                          | Determines whether dots are displayed at the start and end of connectors. |
-| borderWeight  | `4`           | `4 , 2 , 8 (optional)`                        | Sets line thickness.                                                      |
+| borderWeight  | `4`           | `2 , 4 , 8 (optional)`                        | Sets line thickness.                                                      |
